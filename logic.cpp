@@ -55,8 +55,32 @@ bool newspotcheck(int board[8][8], int nr, int nc, int cr, int cc, bool type, in
 		if ((nr == cr + 1 || nr == cr - 1) && (nc == cc + 1 || nc == cc - 1)) {
 			return true;
 		}
-		else
-			return false;
+		/*else
+		return false;*/
+		if (nr == cr + 2 && (nc == cc + 2 || nc == cc - 2)) {
+			if (eitherblack(board, cr + 1, cc + 1) || eitherblack(board, cr + 1, cc - 1)) {
+				count--;
+				if (nc == cc + 2)
+					board[nr - 1][nc - 1] = blank;
+				else if (nc == cc - 2)
+					board[nr - 1][nc + 1] = blank;
+				board[nr][nc] = rking;
+				return true;
+			}
+		}
+		if (nr == cr - 2 && (nc == cc + 2 || nc == cc - 2)) {
+			if (eitherblack(board, cr - 1, cc + 1) || eitherblack(board, cr - 1, cc - 1)) {
+				count--;
+				if (nc == cc + 2)
+					board[nr + 1][nc - 1] = blank;
+				else if (nc == cc - 2)
+					board[nr + 1][nc + 1] = blank;
+				board[nr][nc] = rking;
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 
@@ -78,8 +102,29 @@ bool newspotcheck(int board[8][8], int nr, int nc, int cr, int cc, bool type, in
 		if ((nr == cr + 1 || nr == cr - 1) && (nc == cc + 1 || nc == cc - 1)) {
 			return true;
 		}
-		else
-			return false;
+		if (nr == cr + 2 && (nc == cc + 2 || nc == cc - 2)) {
+			if (eitherred(board, cr + 1, cc + 1) || eitherred(board, cr + 1, cc - 1)) {
+				count--;
+				if (nc == cc + 2)
+					board[nr - 1][nc - 1] = blank;
+				else if (nc == cc - 2)
+					board[nr - 1][nc + 1] = blank;
+				board[nr][nc] = 4;
+				return true;
+			}
+		}
+		if (nr == cr - 2 && (nc == cc + 2 || nc == cc - 2)) {
+			if (eitherred(board, cr - 1, cc + 1) || eitherred(board, cr - 1, cc - 1)) {
+				count--;
+				if (nc == cc + 2)
+					board[nr + 1][nc - 1] = blank;
+				else if (nc == cc - 2)
+					board[nr + 1][nc + 1] = blank;
+				board[nr][nc] = 4;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//int smh = cr + 2, smh1 = cr - 2, smh3 = cc - 2, smh4 = cc + 2;
@@ -102,6 +147,7 @@ bool newspotcheck(int board[8][8], int nr, int nc, int cr, int cc, bool type, in
 					board[nr - 1][nc - 1] = blank;
 				else if (nc == cc - 2)
 					board[nr - 1][nc + 1] = blank;
+
 				return true;
 			}
 		}
