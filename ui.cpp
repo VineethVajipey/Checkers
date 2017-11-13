@@ -39,7 +39,7 @@ int board[8][8] = {
     {0, 2, 0, 2, 0, 2, 0, 2}
 };
 
-bool isPlayer2 = false;
+bool isPlayer2 = true;
 int selectedX = -1,
     selectedY = -1;
 int piecesRemaining[2] = {12, 12};
