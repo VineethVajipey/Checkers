@@ -79,6 +79,16 @@ bool newspotcheck(int board[8][8], int nr, int nc, int cr, int cc, bool type, in
 				return true;
 			}
 		}
+        if (nr == cr + 2 && (nc == cc + 2 || nc == cc - 2)) {
+            if (eitherred(board, cr + 1, cc + 1) || eitherred(board, cr + 1, cc - 1)) {
+                return false;
+            }
+        }
+        if (nr == cr - 2 && (nc == cc + 2 || nc == cc - 2)) {
+            if (eitherred(board, cr - 1, cc + 1) || eitherred(board, cr - 1, cc - 1)) {
+                return false;
+            }
+        }
 
 		return false;
 	}
@@ -124,6 +134,16 @@ bool newspotcheck(int board[8][8], int nr, int nc, int cr, int cc, bool type, in
 				return true;
 			}
 		}
+        if (nr == cr + 2 && (nc == cc + 2 || nc == cc - 2)) {
+            if (eitherblack(board, cr + 1, cc + 1) || eitherblack(board, cr + 1, cc - 1)) {
+                return false;
+            }
+        }
+        if (nr == cr - 2 && (nc == cc + 2 || nc == cc - 2)) {
+            if (eitherblack(board, cr - 1, cc + 1) || eitherblack(board, cr - 1, cc - 1)) {
+                return false;
+            }
+        }
 		return false;
 	}
 

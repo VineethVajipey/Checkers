@@ -1,4 +1,4 @@
-#ifdef _WIN32
+ #ifdef _WIN32
 #include <SDL.h>
 #include <SDL_image.h>
 #else // _WIN32
@@ -50,6 +50,13 @@ const int window_w = 500,
 SDL_Texture  *sprites[9];
 SDL_Renderer *renderer;
 SDL_Window   *window;
+
+const char *getHeader(bool player2) {
+    if(player2)
+        return "Checkers: Black";
+    if(!player2)
+        return "Checkers: White";
+}
 
 void draw(int x, int y, int w, int h, SDL_Texture* sprite) {
     SDL_Rect position;
@@ -121,7 +128,7 @@ void loop() {
                     board[selectedY][selectedX] = 0;
 
                     isPlayer2 = !isPlayer2;
-                    SDL_SetWindowTitle(window, ("Checkers: Player " + std::to_string(isPlayer2 + 1)).c_str());
+                    SDL_SetWindowTitle(window, getHeader(isPlayer2));
                     if (y == 7 * isPlayer2 && board[y][x] < 3)
                         board[y][x] += 2;
                     if (!piecesRemaining[isPlayer2])
@@ -156,7 +163,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    SDL_SetWindowTitle(window, "Checkers: Player 1");
+    SDL_SetWindowTitle(window, "Checkers: Black");
 
     SDL_RenderSetLogicalSize(renderer, window_w, window_h);
 
