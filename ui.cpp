@@ -122,7 +122,7 @@ void loop() {
 
                     isPlayer2 = !isPlayer2;
                     SDL_SetWindowTitle(window, ("Checkers: Player " + std::to_string(isPlayer2 + 1)).c_str());
-                    if (y == 7 * isPlayer2 && board[y][x] < 2)
+                    if (y == 7 * isPlayer2 && board[y][x] < 3)
                         board[y][x] += 2;
                     if (!piecesRemaining[isPlayer2])
                         done = true;
