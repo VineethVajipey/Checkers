@@ -51,13 +51,6 @@ SDL_Texture  *sprites[9];
 SDL_Renderer *renderer;
 SDL_Window   *window;
 
-const char *getHeader(bool player2) {
-    if(player2)
-        return "Checkers: Black";
-    if(!player2)
-        return "Checkers: White";
-}
-
 void draw(int x, int y, int w, int h, SDL_Texture* sprite) {
     SDL_Rect position;
     position.x = x;
@@ -126,9 +119,14 @@ void loop() {
                 else if (selectedX >= 0 && selectedY >= 0 && newspotcheck(board, y, x, selectedY, selectedX, !isPlayer2, piecesRemaining[!isPlayer2])) {
                     board[y][x] = board[selectedY][selectedX];
                     board[selectedY][selectedX] = 0;
-
+                
                     isPlayer2 = !isPlayer2;
-                    SDL_SetWindowTitle(window, getHeader(isPlayer2));
+                    std::string player;
+                    if(isPlayer2)
+                        player = "Black";
+                    else
+                        player = "White";
+                    SDL_SetWindowTitle(window, ("Checkers: " + player).c_str());
                     if (y == 7 * isPlayer2 && board[y][x] < 3)
                         board[y][x] += 2;
                     if (!piecesRemaining[isPlayer2])
@@ -146,7 +144,11 @@ void loop() {
     SDL_RenderPresent(renderer);
 
     if (done) {
-        std::string player = "Player " + std::to_string(2 - isPlayer2);
+        std::string player;
+        if(isPlayer2)
+            player = "Black";
+        else
+            player = "White";
         int amount = piecesRemaining[!isPlayer2];
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, (player + " Won!").c_str(), (player + " won with " + std::to_string(amount) + (amount == 1 ? " piece." : " pieces remaining.")).c_str(), window);
         exit(0);
